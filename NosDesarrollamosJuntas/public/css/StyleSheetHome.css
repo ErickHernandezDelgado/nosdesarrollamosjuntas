@@ -1,0 +1,283 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fce4ec; /* Fondo similar al de la app */
+    color: #333;
+}
+
+/* Contenedor principal */
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+header {
+    text-align: left; /* Alineación a la izquierda */
+    margin-bottom: 25px;
+}
+
+#saludo {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #e57373; /* Color rosa para el saludo */
+}
+
+/* Botón Menarquía */
+.btn-menarquia {
+    background: #e57373; /* Color rosa para coincidir con los botones de otras pantallas */
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    transition: background 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-menarquia:hover {
+    background: #d32f2f;
+}
+
+/* Tarjetas (secciones) */
+.seccion {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título de la tarjeta */
+.seccion h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Texto de la tarjeta */
+.seccion p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Botón "Ver más" */
+.seccion .ver-mas {
+    background: #e57373; /* Color rosa para coincidir con los botones de otras pantallas */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.seccion .ver-mas:hover {
+    background: #d32f2f;
+}
+
+/* Preguntas */
+.pregunta {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* Opciones en columnas y filas */
+.opciones, .opciones-column {
+    display: flex;
+    gap: 15px;
+}
+
+.opciones-column {
+    flex-direction: column;
+}
+
+/* Estilos para emojis */
+.emociones {
+    display: flex;
+    justify-content: space-between;
+}
+
+.emoji-option {
+    text-align: center;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+/* Botón de enviar con estilo */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+button[type="submit"]:hover {
+    background: #218838;
+}
+
+/* Estilos del calendario */
+.calendario-section {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#calendar {
+    width: 100%;
+    min-height: 500px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustes internos del calendario */
+.fc {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+}
+
+/* Animación para mostrar las secciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.seccion {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Ajuste responsive */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+
+    .fc-daygrid-day {
+        min-height: 80px;
+    }
+}
+
+/* Botones colapsables con espaciado uniforme */
+.collapsible {
+    background-color: #FFB6C1;
+    color: #333;
+    cursor: pointer;
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background 0.3s;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.collapsible:hover {
+    background-color: #e57373;
+}
+
+.collapsible.active {
+    background-color: #e57373;
+}
+
+.collapsible .arrow {
+    float: right;
+    transition: transform 0.3s;
+}
+
+.collapsible.active .arrow {
+    transform: rotate(90deg);
+}
+
+/* Contenido de las tarjetas */
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 20px;
+    background-color: white;
+    border-left: none;
+    margin-top: 0;
+    padding-bottom: 0;
+}
+
+.content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.collapsible.active + .content {
+    max-height: 500px;
+    border-left: 4px solid #e57373;
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+
+/* Iconos pequeños */
+.icono-pequeno {
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+/* Estilos para el botón "Cerrar sesión" */
+#logoutButton {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #e57373; /* Color rosa para coincidir con los botones de otras pantallas */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#logoutButton:hover {
+    background: #e57373;
+}
+
+/* Ajustar el primer botón para que no tenga margen superior adicional */
+.collapsible:first-of-type {
+    margin-top: 0;
+}

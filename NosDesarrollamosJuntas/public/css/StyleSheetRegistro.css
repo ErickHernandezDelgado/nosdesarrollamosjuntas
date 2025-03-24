@@ -1,0 +1,85 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fce4ec; /* Fondo similar al de la app */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 90%; /* Ancho más adaptado a móviles */
+    max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Cambiado a columna para mejor adaptación */
+}
+
+.registro-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px; /* Bordes más redondeados */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+    margin-bottom: 20px; /* Espacio inferior para separar del botón Cancelar */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px; /* Más espacio debajo del título */
+    color: #333;
+    font-size: 24px; /* Tamaño de fuente más grande */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+    width: calc(100% - 22px); /* Ajuste para padding y borde */
+    padding: 12px; /* Mayor padding */
+    margin-bottom: 20px; /* Mayor espacio entre campos */
+    border: 1px solid #ddd; /* Borde más claro */
+    border-radius: 8px; /* Bordes más redondeados */
+    font-size: 18px; /* Tamaño de fuente más grande */
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px; /* Mayor espacio inferior */
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 15px; /* Mayor espacio a la derecha del checkbox */
+    transform: scale(1.2); /* Checkbox un poco más grande */
+}
+
+.checkbox-container label {
+    font-size: 18px; /* Tamaño de fuente más grande para la etiqueta */
+}
+
+button {
+    width: 100%;
+    padding: 15px; /* Mayor padding */
+    background-color: #e57373; /* Color similar al de la app */
+    color: #fff;
+    border: none;
+    border-radius: 10px; /* Bordes más redondeados */
+    font-size: 18px; /* Tamaño de fuente más grande */
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); /* Sombra más suave */
+}
+
+button.cancelar {
+    background-color: #bdbdbd; /* Color gris para el botón Cancelar */
+    margin-top: 15px; /* Espacio superior para el botón Cancelar */
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+input[type="number"]#edadMenarquia {
+    display: none;
+}

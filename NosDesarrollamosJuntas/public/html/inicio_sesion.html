@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="/css/StyleSheetInicio.css">
+</head>
+<body>
+    <div class="container">
+        <div class="registro-box">
+            <h2>Iniciar Sesión</h2>
+            <form id="inicioForm">
+                <input type="text" id="nombre" placeholder="Nombre" required>
+                <input type="text" id="apellido" placeholder="Apellido" required>
+                <input type="password" id="contraseña" placeholder="Contraseña" required>
+                
+                <button type="submit">Iniciar Sesión</button>
+                <button type="button" class="cancelar" onclick="window.location.href='/registro'">Registrarse</button>
+            </form>
+        </div>
+    </div>
+    <script defer src="/js/inicio.js"></script>
+</body>
+</html>
