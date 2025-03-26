@@ -34,6 +34,7 @@ app.get("/", (req, res) => {
     try {
         res.sendFile(path.join(__dirname, "public/html/inicio_sesion.html"));
     } catch (error) {
+        console.log(error)
         res.json({ info: "Error al cargar la vista", error})
     }
 });
@@ -42,6 +43,7 @@ app.get("/registro", (req, res) => {
     try {
         res.sendFile(path.join(__dirname, "public/html/registro.html"));
     } catch (error) {
+        console.log(error)
         res.json({ info: "Error al cargar la vista", error})
     }
 });
@@ -50,6 +52,7 @@ app.get("/inicio_sesion", (req, res) => {
     try {
         res.sendFile(path.join(__dirname, "public/html/inicio_sesion.html"));
     } catch (error) {
+        console.log(error)
         res.json({ info: "Error al cargar la vista", error})
     }
 });
@@ -58,6 +61,7 @@ app.get("/home", (req, res) => {
     try {
         res.sendFile(path.join(__dirname, "public/html/home.html"));
     } catch (error) {
+        console.log(error)
         res.json({ info: "Error al cargar la vista", error})
     }
 });
