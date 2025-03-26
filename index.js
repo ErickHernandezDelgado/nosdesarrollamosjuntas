@@ -31,19 +31,35 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Rutas de vistas
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/html/inicio_sesion.html"));
+    try {
+        res.sendFile(path.join(__dirname, "public/html/inicio_sesion.html"));
+    } catch (error) {
+        res.json({ info: "Error al cargar la vista", error})
+    }
 });
 
 app.get("/registro", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/html/registro.html"));
+    try {
+        res.sendFile(path.join(__dirname, "public/html/registro.html"));
+    } catch (error) {
+        res.json({ info: "Error al cargar la vista", error})
+    }
 });
 
 app.get("/inicio_sesion", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/html/inicio_sesion.html"));
+    try {
+        res.sendFile(path.join(__dirname, "public/html/inicio_sesion.html"));
+    } catch (error) {
+        res.json({ info: "Error al cargar la vista", error})
+    }
 });
 
 app.get("/home", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/html/home.html"));
+    try {
+        res.sendFile(path.join(__dirname, "public/html/home.html"));
+    } catch (error) {
+        res.json({ info: "Error al cargar la vista", error})
+    }
 });
 
 // ✅ Ruta para registrar usuario en la base de datos
