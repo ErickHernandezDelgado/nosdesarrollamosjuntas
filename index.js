@@ -4,7 +4,6 @@ const app = express();
 const path = require("path");
 const mysql = require("mysql2");
 const PORT = 3800;
-// Configuración de la conexión a MySQL
 
 const db = mysql.createConnection({
     host: process.env.HOST,
@@ -14,7 +13,6 @@ const db = mysql.createConnection({
     port: process.env.PORT
 });
 
-// Intentar conectar a MySQL
 db.connect(err => {
     if (err) {
         console.error("❌ Error al conectar a MySQL:", err.stack);
@@ -35,7 +33,7 @@ app.get("/", (req, res) => {
         res.sendFile(path.join(__dirname, "public/html/inicio_sesion.html"));
     } catch (error) {
         console.log(error)
-        res.json({ info: "Error al cargar la vista", error})
+        res.json({ info: "Error al cargar la vista", error })
     }
 });
 
@@ -44,7 +42,7 @@ app.get("/registro", (req, res) => {
         res.sendFile(path.join(__dirname, "public/html/registro.html"));
     } catch (error) {
         console.log(error)
-        res.json({ info: "Error al cargar la vista", error})
+        res.json({ info: "Error al cargar la vista", error })
     }
 });
 
@@ -53,7 +51,7 @@ app.get("/inicio_sesion", (req, res) => {
         res.sendFile(path.join(__dirname, "public/html/inicio_sesion.html"));
     } catch (error) {
         console.log(error)
-        res.json({ info: "Error al cargar la vista", error})
+        res.json({ info: "Error al cargar la vista", error })
     }
 });
 
@@ -62,7 +60,7 @@ app.get("/home", (req, res) => {
         res.sendFile(path.join(__dirname, "public/html/home.html"));
     } catch (error) {
         console.log(error)
-        res.json({ info: "Error al cargar la vista", error})
+        res.json({ info: "Error al cargar la vista", error })
     }
 });
 
