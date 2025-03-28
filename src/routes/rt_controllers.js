@@ -1,9 +1,10 @@
 const path = require("path");
 const express = require("express");
+const db = require("../db/connect");
 const route = express.Router()
 
 // ✅ Ruta para registrar usuario en la base de datos
-app.post("/registro", (req, res) => {
+route.post("/registro", (req, res) => {
     console.log("📥 Datos recibidos en /registro:", req.body);
     const { nombre, apellido, contraseña, edad, primerPeriodo, edadMenarquia, tipoMenarquia } = req.body;
 
@@ -36,7 +37,7 @@ app.post("/registro", (req, res) => {
 });
 
 // ✅ Ruta para manejar el inicio de sesión
-app.post("/login", (req, res) => {
+route.post("/login", (req, res) => {
     const { nombre, apellido, contraseña } = req.body;
     const sql = `
         SELECT u.id, u.nombre, u.apellido, u.edad, u.menarquia, 
@@ -61,7 +62,7 @@ app.post("/login", (req, res) => {
 });
 
 // ✅ Ruta para registrar el reporte diario
-app.post("/registrar-reporte", (req, res) => {
+route.post("/registrar-reporte", (req, res) => {
     const { usuario, fecha, flujo, nivel_flujo, opciones } = req.body;
 
     if (flujo === 1 && !nivel_flujo) {
