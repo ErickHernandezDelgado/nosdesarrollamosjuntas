@@ -1,32 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro</title>
-    <link rel="stylesheet" href="/css/StyleSheetRegistro.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/StyleSheetRegistro.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="container">
-        <div class="registro-box">
-            <h2>Registro</h2>
-            <form id="registroForm">
-                <input type="text" id="nombre" placeholder="¿Cómo te llamas?" required>
-                <input type="text" id="apellido" placeholder="¿Cuál es tu apellido?" required>
-                <input type="password" id="contraseña" placeholder="Elige una contraseña" required>
-                <input type="number" id="edad" placeholder="¿Cuántos años tienes?" min="9" max="16" required>
-                
-                <div class="checkbox-container">
-                    <input type="checkbox" id="primerPeriodo" onchange="toggleEdadMenarquia()">
-                    <label for="primerPeriodo">¿Ya tuviste tu primer período?</label>
-                </div>
-            
-                <input type="number" id="edadMenarquia" placeholder="¿A qué edad tuviste tu primer período?" min="9" max="16" style="display: none;" required>
-            
-                <button type="button" onclick="validarRegistro()">Registrar</button>
-            </form>                    
-        </div>
+      <div class="registro-box">
+        <h2>Registro</h2>
+        <form id="registroForm">
+          <input
+            type="text"
+            id="nombre"
+            placeholder="¿Cómo te llamas?"
+            required
+          />
+          <input
+            type="text"
+            id="apellido"
+            placeholder="¿Cuál es tu apellido?"
+            required
+          />
+          <input
+            type="password"
+            id="contraseña"
+            placeholder="Elige una contraseña"
+            required
+          />
+          <input
+            type="number"
+            id="edad"
+            placeholder="¿Cuántos años tienes?"
+            min="9"
+            max="16"
+            required
+          />
+
+          <div class="checkbox-container">
+            <input
+              type="checkbox"
+              id="primerPeriodo"
+              onchange="toggleEdadMenarquia()"
+            />
+            <label for="primerPeriodo">¿Ya tuviste tu primer período?</label>
+          </div>
+
+          <input
+            type="number"
+            id="edadMenarquia"
+            placeholder="¿A qué edad tuviste tu primer período?"
+            min="9"
+            max="16"
+            style="display: none"
+            required
+          />
+
+          <button type="button" onclick="validarRegistro()">Registrar</button>
+        </form>
+      </div>
     </div>
     <script defer src="/js/Script.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+  </body>
 </html>

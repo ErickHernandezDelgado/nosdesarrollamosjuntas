@@ -1,96 +1,174 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio</title>
-    <link rel="stylesheet" href="/css/StyleSheetHome.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/StyleSheetHome.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="container">
-        <header>
-            <h1 id="saludo">¡Hola!</h1>
-        </header>
+      <header>
+        <h1 id="saludo">¡Hola!</h1>
+      </header>
 
-        <section class="menarquia-info">
-            <button class="collapsible">Tu menarquía <span class="arrow">➜</span></button>
-            <div class="content">
-                <p id="tipoMenarquia">Cargando información...</p>
-                <div id="consejosMenarquia"></div> <!-- Nuevo div para consejos -->
+      <section class="menarquia-info">
+        <button class="collapsible">
+          Tu menarquía <span class="arrow">➜</span>
+        </button>
+        <div class="content">
+          <p id="tipoMenarquia">Cargando información...</p>
+          <div id="consejosMenarquia"></div>
+          <!-- Nuevo div para consejos -->
+        </div>
+      </section>
+
+      <section class="registro-diario">
+        <button class="collapsible">
+          Registro de hoy - <span id="fechaActual"></span>
+          <span class="arrow">➜</span>
+        </button>
+        <div class="content">
+          <form id="formularioDiario">
+            <div class="seccion">
+              <h3>Flujo menstrual</h3>
+              <div class="pregunta">
+                <label>¿Tuviste sangrado hoy?</label>
+                <div class="opciones">
+                  <label
+                    ><input type="radio" name="sangrado" value="si" required />
+                    Sí</label
+                  >
+                  <label
+                    ><input type="radio" name="sangrado" value="no" required />
+                    No</label
+                  >
+                </div>
+              </div>
+              <div class="pregunta" id="flujoIntensidad" style="display: none">
+                <label>Intensidad del flujo:</label>
+                <div class="opciones">
+                  <label
+                    ><input type="radio" name="intensidad" value="leve" />
+                    Leve</label
+                  >
+                  <label
+                    ><input type="radio" name="intensidad" value="moderado" />
+                    Moderado</label
+                  >
+                  <label
+                    ><input type="radio" name="intensidad" value="fuerte" />
+                    Fuerte</label
+                  >
+                </div>
+              </div>
             </div>
-        </section>
-                      
-        <section class="registro-diario">
-            <button class="collapsible">Registro de hoy - <span id="fechaActual"></span> <span class="arrow">➜</span></button>
-            <div class="content">
-                <form id="formularioDiario">
-                    <div class="seccion">
-                        <h3>Flujo menstrual</h3>
-                        <div class="pregunta">
-                            <label>¿Tuviste sangrado hoy?</label>
-                            <div class="opciones">
-                                <label><input type="radio" name="sangrado" value="si" required> Sí</label>
-                                <label><input type="radio" name="sangrado" value="no" required> No</label>
-                            </div>
-                        </div>
-                        <div class="pregunta" id="flujoIntensidad" style="display: none;">
-                            <label>Intensidad del flujo:</label>
-                            <div class="opciones">
-                                <label><input type="radio" name="intensidad" value="leve"> Leve</label>
-                                <label><input type="radio" name="intensidad" value="moderado"> Moderado</label>
-                                <label><input type="radio" name="intensidad" value="fuerte"> Fuerte</label>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="seccion">
-                        <h3>Sensaciones físicas</h3>
-                        <div class="pregunta">
-                            <label>¿Tuviste algún malestar?</label>
-                            <div class="opciones-column">
-                                <label><input type="checkbox" name="sintomas" value="dolor"> Dolor abdominal</label>
-                                <label><input type="checkbox" name="sintomas" value="dolorCabeza"> Dolor de cabeza</label>
-                                <label><input type="checkbox" name="sintomas" value="fatiga"> Fatiga</label>
-                                <label><input type="checkbox" name="sintomas" value="otros"> Otros <span><textarea name="" id=""></textarea></span></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="seccion">
-                        <h3>Estado emocional</h3>
-                        <div class="pregunta">
-                            <div class="emociones">
-                                <label class="emoji-option"><input type="radio" name="emocion" value="feliz" required> 😊<br>Feliz</label>
-                                <label class="emoji-option"><input type="radio" name="emocion" value="tranquila" required> 🙂<br>Tranquila</label>
-                                <label class="emoji-option"><input type="radio" name="emocion" value="irritable" required> 😠<br>Irritable</label>
-                                <label class="emoji-option"><input type="radio" name="emocion" value="triste" required> 😞<br>Triste</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit">Guardar día</button>
-                </form>
+            <div class="seccion">
+              <h3>Sensaciones físicas</h3>
+              <div class="pregunta">
+                <label>¿Tuviste algún malestar?</label>
+                <div class="opciones-column">
+                  <label
+                    ><input type="checkbox" name="sintomas" value="dolor" />
+                    Dolor abdominal</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="sintomas"
+                      value="dolorCabeza"
+                    />
+                    Dolor de cabeza</label
+                  >
+                  <label
+                    ><input type="checkbox" name="sintomas" value="fatiga" />
+                    Fatiga</label
+                  >
+                  <label
+                    ><input type="checkbox" name="sintomas" value="otros" />
+                    Otros <span><textarea name="" id=""></textarea></span
+                  ></label>
+                </div>
+              </div>
             </div>
-        </section>
 
-        <div id="explicacion-calendario">
-            <h3>Entendiendo tu Calendario Menstrual</h3>
-            <p>
-              En este calendario, los días marcados con un punto azul indican los días en los que registraste que no hubo flujo menstrual. 
-              Por otro lado, los días que no tienen el punto azul pero si rojo, indican que registraste que sí hubo flujo menstrual.
-              Registrar estos días es importante para que puedas conocer mejor tu ciclo menstrual, identificar patrones y anticipar tu próximo período.
-              Esto te ayudará a estar preparada y a cuidar mejor de tu salud.
-            </p>
-          </div>
-
-        <section class="calendario-section">
-            <button class="collapsible">🗓️ Tu Calendario Menstrual <span class="arrow">➜</span></button>
-            <div class="content">
-                <div id="calendar"></div>
+            <div class="seccion">
+              <h3>Estado emocional</h3>
+              <div class="pregunta">
+                <div class="emociones">
+                  <label class="emoji-option"
+                    ><input
+                      type="radio"
+                      name="emocion"
+                      value="feliz"
+                      required
+                    />
+                    😊<br />Feliz</label
+                  >
+                  <label class="emoji-option"
+                    ><input
+                      type="radio"
+                      name="emocion"
+                      value="tranquila"
+                      required
+                    />
+                    🙂<br />Tranquila</label
+                  >
+                  <label class="emoji-option"
+                    ><input
+                      type="radio"
+                      name="emocion"
+                      value="irritable"
+                      required
+                    />
+                    😠<br />Irritable</label
+                  >
+                  <label class="emoji-option"
+                    ><input
+                      type="radio"
+                      name="emocion"
+                      value="triste"
+                      required
+                    />
+                    😞<br />Triste</label
+                  >
+                </div>
+              </div>
             </div>
-        </section>
 
-        <!--<section class="reportes-section">
+            <button type="submit">Guardar día</button>
+          </form>
+        </div>
+      </section>
+
+      <div id="explicacion-calendario">
+        <h3>Entendiendo tu Calendario Menstrual</h3>
+        <p>
+          En este calendario, los días marcados con un punto azul indican los
+          días en los que registraste que no hubo flujo menstrual. Por otro
+          lado, los días que no tienen el punto azul pero si rojo, indican que
+          registraste que sí hubo flujo menstrual. Registrar estos días es
+          importante para que puedas conocer mejor tu ciclo menstrual,
+          identificar patrones y anticipar tu próximo período. Esto te ayudará a
+          estar preparada y a cuidar mejor de tu salud.
+        </p>
+      </div>
+
+      <section class="calendario-section">
+        <button class="collapsible">
+          🗓️ Tu Calendario Menstrual <span class="arrow">➜</span>
+        </button>
+        <div class="content">
+          <div id="calendar"></div>
+        </div>
+      </section>
+
+      <!--<section class="reportes-section">
             <div id="reportesContainer">
                 <button class="collapsible">Mostrar Reportes<span class="arrow">➜</span></button>
                 <div class="content" id="reportesContent" style="display: none;">
@@ -102,11 +180,10 @@
             </div>
         </section>
         -->
-        <button id="logoutButton">Cerrar sesión</button>
-
+      <button id="logoutButton">Cerrar sesión</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="/js/home.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+  </body>
 </html>
