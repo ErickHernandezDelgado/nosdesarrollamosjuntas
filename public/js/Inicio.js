@@ -23,7 +23,7 @@ document.getElementById("inicioForm").addEventListener("submit", function (event
                 timer: 1500
             });
 
-            setTimeout(()=>{ window.location.href = "/"}, 1500)
+            setTimeout(()=>{ window.location.href = "/" }, 1500)
         }
     })
     .catch(error => console.error("❌ Error en el inicio de sesión:", error));

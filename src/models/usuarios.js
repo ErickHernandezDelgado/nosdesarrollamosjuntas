@@ -1,6 +1,6 @@
-const Cryptr = require("cryptr")
-const cryptr = new Cryptr(process.env.SECRET_KEY)
-// const { dbConecction } = require("../db/connect");
+const Cryptr = require("cryptr");
+const cryptr = new Cryptr(process.env.SECRET_KEY);
+
 const { usuario_existe, usuario_alta, generar_menarquia, iniciar_sesion } = require("../db/db_usuarios");
 
 class Usuarios {

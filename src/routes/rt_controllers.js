@@ -3,23 +3,11 @@ const express = require("express");
 const db = require("../db/connect");
 const { usuario } = require("../controllers/ctrl_controllers");
 const Usuarios = require("../models/usuarios");
+const { hasSession } = require("../middlewares/mdw_cookes");
 const route = express.Router()
 
 // ✅ Ruta para registrar usuario en la base de datos
-route.post("/registro", async (req, res) => {
-    console.log("📥 Datos recibidos en /registro:", req.body);
-    const { nombre, apellido, contraseña, edad, primerPeriodo, edadMenarquia, tipoMenarquia } = req.body;
-
-    const menarquia = primerPeriodo ? true : false;
-    const objUsuario = new Usuarios(nombre, apellido, edad, contraseña);
-
-    if(await objUsuario.usuariosExistente()) return res.status(200).json({ estatus: 2, message: "El usuario ya existe"});
-
-    const crear = await objUsuario.crearUsuario(menarquia);
-    if(primerPeriodo) await objUsuario.generarMenarquia(crear.data);
-
-    return res.json({ estatus: 1, message: "Bienvenido ".concat(crear.info.nombre, " ", crear.info.apellido)})
-});
+route.post("/registro", usuario.registro);
 
 // ✅ Ruta para manejar el inicio de sesión
 route.post("/login", usuario.iniciar_sesion);

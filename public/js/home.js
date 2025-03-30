@@ -1,37 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script home.js cargado correctamente");
 
-    // Obtener el botón de cerrar sesión
-    const logoutButton = document.getElementById("logoutButton");
-    
-    if (logoutButton) {
-        logoutButton.addEventListener("click", () => {
-            // Limpiar el localStorage
-            localStorage.clear();
-
-            // Redirigir al inicio de sesión
-            window.location.href = "/inicio_sesion";
-        });
-    } else {
-        console.warn("No se encontró el botón de cerrar sesión en el DOM.");
-    }
-
     // Obtener nombre del usuario y saludar
     const nombre = localStorage.getItem("nombre") || "Amiga";
     document.getElementById("saludo").textContent = `¡Hola, ${nombre}!`;
 
-    // Obtener el ID del usuario desde localStorage
-    const userId = localStorage.getItem("userId"); // Asegúrate de que el ID se almacene correctamente
 
-    if (userId) {
-        fetch(`/obtener-menarquia/${userId}`)
-            .then(response => response.json())
-            .then(data => {
-                const tipoMenarquia = data.tipoMenarquia || "sin_menarquia";
-                mostrarMenarquia(tipoMenarquia);
-            })
-            .catch(error => console.error("Error al obtener la menarquía:", error));
-    }
+    fetch(`/obtener-menarquia`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            const tipoMenarquia = data.data.tipoMenarquia || "sin_menarquia";
+            mostrarMenarquia(tipoMenarquia);
+        })
+        .catch(error => console.error("Error al obtener la menarquía:", error));
+
 
     function mostrarMenarquia(tipoMenarquia) {
         const infoMenarquia = document.getElementById("tipoMenarquia");
@@ -208,13 +191,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
             eventClick: function(info) {
-                const userId = localStorage.getItem("userId"); // Obtener el ID del usuario
                 const fecha = info.event.start.toISOString().split('T')[0]; // Obtener la fecha del evento
 
                 console.log("Evento clickeado:", fecha); // Verifica si se detecta el clic en consola
 
                 // Llamar al backend para obtener los datos del reporte
-                fetch(`/obtener-registro/${userId}/${fecha}`)
+                fetch(`/obtener-registro/${fecha}`)
                     .then(response => response.json())
                     .then(registro => {
                         console.log("Datos del reporte recibidos:", registro); // Verifica que se reciban datos
@@ -248,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Manejar el envío del formulario
-        const formularioDiario = document.getElementById("formularioDiario");
+    const formularioDiario = document.getElementById("formularioDiario");
     if (formularioDiario) {
     formularioDiario.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -417,16 +399,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-        // Llamar a la API para obtener los eventos del usuario
-        function obtenerEventosDelUsuario(userId) {
-            fetch(`/obtener-eventos/${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Eventos recibidos:", data); // Agrega este log
-                    actualizarCalendario(data); // Pasa los datos a actualizarCalendario
-                })
-                .catch(error => console.error("Error al obtener eventos:", error));
-        }
+    // Llamar a la API para obtener los eventos del usuario
+    function obtenerEventosDelUsuario(userId) {
+        fetch(`/obtener-eventos`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Eventos recibidos:", data); // Agrega este log
+                actualizarCalendario(data.data); // Pasa los datos a actualizarCalendario
+            })
+            .catch(error => console.error("Error al obtener eventos:", error));
+    }
 
     // Modificar la función de inicialización del calendario
     if (calendarEl) {
@@ -458,6 +440,7 @@ document.addEventListener("DOMContentLoaded", function () {
     collapsibles.forEach(button => {
         console.log("Evento añadido a:", button.textContent.trim());
         button.addEventListener("click", function () {
+            console.log("Click")
             this.classList.toggle("active");
             const content = this.nextElementSibling;
             console.log("Contenido:", content);
@@ -469,3 +452,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+function cerrar_sesion(){
+    window.location.href = "./cerrar-sesion";
+}

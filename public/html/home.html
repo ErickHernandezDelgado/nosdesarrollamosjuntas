@@ -168,22 +168,13 @@
         </div>
       </section>
 
-      <!--<section class="reportes-section">
-            <div id="reportesContainer">
-                <button class="collapsible">Mostrar Reportes<span class="arrow">➜</span></button>
-                <div class="content" id="reportesContent" style="display: none;">
-                    <ul id="reportesList"></ul>
-                </div>
-            </div>
-            <div id="reporteInfo" style="display: none; margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-
-            </div>
-        </section>
-        -->
-      <button id="logoutButton">Cerrar sesión</button>
+      <button type="button" id="logoutButton" onclick="cerrar_sesion()">
+        Cerrar sesión
+      </button>
     </div>
 
-    <script src="/js/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+    <script src="/js/home.js"></script>
   </body>
 </html>
