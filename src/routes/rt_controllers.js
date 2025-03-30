@@ -1,65 +1,28 @@
 const path = require("path");
 const express = require("express");
 const db = require("../db/connect");
+const { usuario } = require("../controllers/ctrl_controllers");
+const Usuarios = require("../models/usuarios");
 const route = express.Router()
 
 // ✅ Ruta para registrar usuario en la base de datos
-route.post("/registro", (req, res) => {
+route.post("/registro", async (req, res) => {
     console.log("📥 Datos recibidos en /registro:", req.body);
     const { nombre, apellido, contraseña, edad, primerPeriodo, edadMenarquia, tipoMenarquia } = req.body;
 
     const menarquia = primerPeriodo ? true : false;
+    const objUsuario = new Usuarios(nombre, apellido, edad, contraseña);
 
-    const sqlUsuario = "INSERT INTO usuarios (nombre, apellido, contrasena, edad, menarquia) VALUES (?, ?, ?, ?, ?)";
-    db.query(sqlUsuario, [nombre, apellido, contraseña, edad, menarquia], (err, result) => {
-        if (err) {
-            console.error("❌ Error al registrar usuario:", err);
-            res.status(500).json({ message: "Error al registrar usuario." });
-            return;
-        }
+    if(await objUsuario.usuariosExistente()) return res.status(200).json({ estatus: 2, message: "El usuario ya existe"});
 
-        const userId = result.insertId;
+    const crear = await objUsuario.crearUsuario(menarquia);
+    if(primerPeriodo) await objUsuario.generarMenarquia(crear.data);
 
-        if (primerPeriodo) {
-            const sqlMenarquia = "INSERT INTO menarquia (usuario, edad, tipo_menarquia) VALUES (?, ?, ?)";
-            db.query(sqlMenarquia, [userId, edadMenarquia, tipoMenarquia], (err) => {
-                if (err) {
-                    console.error("❌ Error al registrar menarquia:", err);
-                    res.status(500).json({ message: "Error al registrar información de menarquia." });
-                    return;
-                }
-                res.json({ message: "✅ Usuario y menarquia registrados correctamente" });
-            });
-        } else {
-            res.json({ message: "✅ Usuario registrado correctamente (sin menarquia)" });
-        }
-    });
+    return res.json({ estatus: 1, message: "Bienvenido ".concat(crear.info.nombre, " ", crear.info.apellido)})
 });
 
 // ✅ Ruta para manejar el inicio de sesión
-route.post("/login", (req, res) => {
-    const { nombre, apellido, contraseña } = req.body;
-    const sql = `
-        SELECT u.id, u.nombre, u.apellido, u.edad, u.menarquia, 
-               m.edad AS edad_menarquia, m.tipo_menarquia
-        FROM usuarios u
-        LEFT JOIN menarquia m ON u.id = m.usuario
-        WHERE u.nombre = ? AND u.apellido = ? AND u.contrasena = ?
-    `;
-
-    db.query(sql, [nombre, apellido, contraseña], (err, result) => {
-        if (err) {
-            console.error("❌ Error al hacer la consulta:", err);
-            res.status(500).json({ message: "Error al iniciar sesión." });
-            return;
-        }
-        if (result.length > 0) {
-            res.json({ mensaje: "✅ Inicio de sesión exitoso", usuario: result[0] });
-        } else {
-            res.json({ mensaje: "❌ Credenciales incorrectas" });
-        }
-    });
-});
+route.post("/login", usuario.iniciar_sesion);
 
 // ✅ Ruta para registrar el reporte diario
 route.post("/registrar-reporte", (req, res) => {

@@ -1,5 +1,4 @@
 const path = require("path");
-const { dbConecction } = require("../db/connect");
 const { get_usuarios } = require("../db/db_usuarios");
 
 
@@ -8,24 +7,24 @@ const vistas_principales = {
         try {
             res.sendFile(path.join(__dirname, "../../public/html/home.html"));
         } catch (error) {
-            console.log(error)
-            res.json({ info: "Error al cargar la vista", error })
+            console.log(error);
+            res.json({ estatus: 0, info: "Error al cargar la vista "+error});
         }
     },
     registro: (req, res) => {
         try {
             res.sendFile(path.join(__dirname, "../../public/html/registro.html"));
         } catch (error) {
-            console.log(error)
-            res.json({ info: "Error al cargar la vista", error })
+            console.log(error);
+            res.json({ estatus: 0, info: "Error al cargar la vista "+error});
         }
     },
     iniciar_sesion: (req, res) => {
         try {
             res.sendFile(path.join(__dirname, "../../public/html/inicio_sesion.html"));
         } catch (error) {
-            console.log(error)
-            res.json({ info: "Error al cargar la vista", error })
+            console.log(error);
+            res.json({ estatus: 0, info: "Error al cargar la vista "+error});
         }
     }
 }

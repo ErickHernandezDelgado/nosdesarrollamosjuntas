@@ -5,6 +5,10 @@ const Usuarios = require("../models/usuarios");
 const route = express.Router()
 
 route.get("/", vistas_principales.inicio);
+route.get("/session", (req, res) => {
+    console.log(req.session)
+    return res.json(req.session)
+});
 
 route.get("/registro", vistas_principales.registro);
 

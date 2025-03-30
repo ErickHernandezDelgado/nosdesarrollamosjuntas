@@ -1,14 +1,24 @@
+require("dotenv").config()
 const express = require("express");
-const app = express();
+const session = require("express-session")
 const path = require("path");
+
+const app = express();
 const PORT = 3800;
 
 
 // Middleware para manejar JSON
 app.use(express.json());
-
-// Servir archivos estáticos desde la carpeta "public"
 app.use(express.static(path.join(__dirname, "public")));
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { 
+        secure: true,
+        maxAge: 1000 * 60 * 30
+    }
+}))
 
 // Rutas de vistas
 app.use(require(path.join(__dirname, "./src/routes/rt_vistas.js")))
