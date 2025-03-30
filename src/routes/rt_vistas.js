@@ -15,7 +15,7 @@ route.get("/session", (req, res) => {
     return res.json(req.session)
 });
 
-route.get("/registro", [hasSession], vistas_principales.registro);
+route.get("/registro", vistas_principales.registro);
 
 route.get("/inicio_sesion", vistas_principales.iniciar_sesion);
 
