@@ -253,14 +253,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function guardarRegistro(registro) {
-        const usuarioId = localStorage.getItem("userId");
         console.log("Valor de sangrado:", registro.sangrado); // Agrega este log
         const data = {
-            usuario: usuarioId,
             fecha: registro.fecha,
             flujo: registro.sangrado === "si" ? 1 : 0,
-            nivel_flujo: registro.sangrado === "si" ? registro.intensidad : null,
-            opciones: []
+            nivel_flujo: registro.sangrado === "si" ? (
+                registro.intensidad === "leve"      ? 1 :
+                registro.intensidad === "moderado"  ? 2 : 
+                registro.intensidad === "fuerte"    ? 3 : ""
+            ) : null,
         };
     
         const sintomasIds = Array.from(document.querySelectorAll("input[name='sintomas']:checked"))
@@ -269,7 +270,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     "dolor": 1,
                     "dolorCabeza": 2,
                     "fatiga": 3,
-                    "otros": 4
                 };
                 return opcionesMap[input.value];
             });
@@ -277,17 +277,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const emocionesIds = Array.from(document.querySelectorAll("input[name='emocion']:checked"))
             .map(input => {
                 const emocionesMap = {
-                    "feliz": 5,
-                    "tranquila": 6,
-                    "irritable": 7,
-                    "triste": 8
+                    "feliz":     1,
+                    "tranquila": 2,
+                    "irritable": 3,
+                    "triste":    4
                 };
                 return emocionesMap[input.value];
             });
     
         // Combina síntomas y emociones en un solo array
-        data.opciones = [...sintomasIds, ...emocionesIds];
-    
+        data.sintomas  = [...sintomasIds, document.getElementById("otros").value];
+        data.emociones = emocionesIds;
+        console.log(data)
         fetch("/registrar-reporte", {
             method: "POST",
             headers: {
@@ -297,11 +298,26 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json())
         .then(result => {
+            console.log(result)
             if (result.message) {
                 console.log("Registro guardado exitosamente");
-                obtenerEventosDelUsuario(usuarioId); // Actualiza el calendario
+                obtenerEventosDelUsuario(); // Actualiza el calendario
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Registro guardado",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             } else {
                 console.error("Error al guardar el registro:", result.message);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "info",
+                    title: "Favor de intentarlo nuevamente.",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
         })
         .catch(error => console.error("Error en la solicitud:", error));
@@ -400,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Llamar a la API para obtener los eventos del usuario
-    function obtenerEventosDelUsuario(userId) {
+    function obtenerEventosDelUsuario() {
         fetch(`/obtener-eventos`)
             .then(response => response.json())
             .then(data => {

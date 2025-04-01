@@ -12,7 +12,7 @@ module.exports = {
                 where u.id = ?
             `, [...Object.values(data)])
 
-            return { estatus: rows.length ? 1 : 2, data: rows.length ? rows[0] : [] }
+            return { estatus: rows.length ? 1 : 2, data: rows.length ? rows[0] : [] };
         } catch (error) {
             console.error(error);
             throw error;
@@ -38,9 +38,9 @@ module.exports = {
                     ON r.estatus = co_estatus.valor AND co_estatus.categoria = 'estatus'
                 WHERE r.usuario = ? and r.fecha = ?
                 GROUP BY r.idreporte;
-            `, [...Object.values(data)])
+            `, [...Object.values(data)]);
 
-            return {data: rows}
+            return {data: rows};
         } catch (error) {
             console.error(error);
             throw error;
@@ -54,9 +54,41 @@ module.exports = {
                 FROM reporte r
                 WHERE r.usuario = ?
                 ORDER BY r.fecha ASC
+            `, [...Object.values(data)]);
+
+            return rows;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    reporte_dia: async (data) => {
+        try {
+            const [rows] = await dbConecction.query(`
+                    SELECT
+                        *
+                    FROM reporte
+                    WHERE usuario = ? 
+                    AND fecha = ?;
+                `, [...Object.values(data)]);
+
+            return rows;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    reporte_crear: async (data) => {
+        try {
+            await dbConecction.query(`
+                INSERT INTO 
+                reporte
+                (usuario, flujo, dolores, estatus, fecha)
+                values
+                (?, ?, ?, ?, ?);
             `, [...Object.values(data)])
 
-            return rows
+            return {estatus: 1}
         } catch (error) {
             console.log(error);
             throw error;

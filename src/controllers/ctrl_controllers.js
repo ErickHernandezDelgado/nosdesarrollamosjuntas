@@ -1,6 +1,7 @@
 const Cryptr = require("cryptr")
 const cryptr = new Cryptr(process.env.SECRET_KEY)
 const Usuarios = require("../models/usuarios");
+const Reportes = require("../models/reportes");
 
 
 const usuario = {
@@ -36,14 +37,29 @@ const usuario = {
             const crear = await objUsuario.crearUsuario(menarquia);
             if(primerPeriodo) await objUsuario.generarMenarquia({id: crear.data, edadMenarquia, tipoMenarquia});
             
-            return res.json({ estatus: 1, message: "Bienvenido ".concat(crear.info.nombre, " ", crear.info.apellido)})
+            return res.json({ estatus: 1, message: "Bienvenido ".concat(crear.info.nombre, " ", crear.info.apellido)});
         } catch (error) {
             console.error(error);
-            return res.json({ estatus: 0, message: "Ha ocurrido un error "+error })
+            return res.json({ estatus: 0, message: "Ha ocurrido un error "+error });
         }
     },
     reporte: async (req, res) => {
-        
+        try {
+            console.log("entro");
+            
+            const { fecha, flujo, nivel_flujo, sintomas, emociones } = req.body;
+            if(flujo == "") return res.status(400).json({ message: "El nivel de flujo es requerido si hubo flujo." });
+
+            const objReporte = new Reportes(cryptr.decrypt(req.session.usuario.usuario));
+            const reporteHoy = await objReporte.reportHoy();
+            console.log(reporteHoy)
+            if(reporteHoy.data) return res.status(400).json({ message: "Ya existe un reporte para esta fecha." });
+            objReporte.reporteCrear({ flujo: nivel_flujo, dolores:  JSON.stringify(sintomas), estatus: emociones, fecha})
+            return res.status(200).json({ message: "✅ Reporte registrado correctamente con opciones." })
+        } catch (error) {
+            console.log(error);
+            return res.json({ estatus: 0, message: "Ha ocurrido un error "+error });  
+        }
     }
 }
 
