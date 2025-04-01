@@ -23,24 +23,48 @@ function validarRegistro() {
     const edadMenarquia = primerPeriodo ? parseInt(document.getElementById("edadMenarquia").value) : null;
 
     if (!nombre || !apellido) {
-        alert("Por favor, ingresa tu nombre y apellido.");
+        Swal.fire({
+            position: "top-end",
+            icon: "info",
+            title: "Por favor, ingresa tu nombre y apellido.",
+            showConfirmButton: false,
+            timer: 1500
+          });
         return;
     }
 
     if (!contraseña || contraseña.length < 6) {
-        alert("La contraseña debe tener al menos 6 caracteres.");
+        Swal.fire({
+            position: "top-end",
+            icon: "info",
+            title: "La contraseña debe tener al menos 6 caracteres.",
+            showConfirmButton: false,
+            timer: 1500
+          });
         return;
     }
 
     if (isNaN(edad) || edad < 9 || edad > 16) {
-        alert("Por favor, ingresa una edad válida entre 9 y 16 años.");
+        Swal.fire({
+            position: "top-end",
+            icon: "info",
+            title: "Por favor, ingresa una edad válida entre 9 y 16 años.",
+            showConfirmButton: false,
+            timer: 1500
+          });
         return;
     }
 
     let tipoMenarquia = null;
     if (primerPeriodo) {
         if (!edadMenarquia || edadMenarquia < 9 || edadMenarquia > 16) {
-            alert("Por favor, ingresa una edad válida para tu primer período.");
+            Swal.fire({
+                position: "top-end",
+                icon: "info",
+                title: "Por favor, ingresa una edad válida para tu primer período.",
+                showConfirmButton: false,
+                timer: 1500
+              });
             return;
         }
         tipoMenarquia = edadMenarquia <= 11 ? "temprana" : edadMenarquia >= 15 ? "tardia" : "regular";
@@ -61,8 +85,17 @@ function validarRegistro() {
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message);
-        window.location.href = "/inicio_sesion";
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: data.message,
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+        setTimeout(() => {
+            window.location.href = "/inicio_sesion";
+        }, 1500);
     })
     .catch(error => {
         console.error('Error:', error);
