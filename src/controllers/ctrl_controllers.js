@@ -48,13 +48,13 @@ const usuario = {
             console.log("entro");
             
             const { fecha, flujo, nivel_flujo, sintomas, emociones } = req.body;
-            if(flujo == "") return res.status(400).json({ message: "El nivel de flujo es requerido si hubo flujo." });
+            if(flujo === "" ) return res.status(400).json({ message: "El nivel de flujo es requerido si hubo flujo." });
 
             const objReporte = new Reportes(cryptr.decrypt(req.session.usuario.usuario));
             const reporteHoy = await objReporte.reportHoy();
             console.log(reporteHoy)
             if(reporteHoy.data) return res.status(400).json({ message: "Ya existe un reporte para esta fecha." });
-            objReporte.reporteCrear({ flujo: nivel_flujo, dolores:  JSON.stringify(sintomas), estatus: emociones, fecha})
+            objReporte.reporteCrear({ flujo: nivel_flujo || 0, dolores:  JSON.stringify(sintomas), estatus: emociones, fecha})
             return res.status(200).json({ message: "✅ Reporte registrado correctamente con opciones." })
         } catch (error) {
             console.log(error);

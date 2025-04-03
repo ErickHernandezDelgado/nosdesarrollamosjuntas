@@ -1,9 +1,11 @@
-const { dbConecction } = require("./connect")
+const { getConnection } = require("./connect")
 
 module.exports = {
     reporte_menarquia: async (data) => {
+        let connection;
         try {
-            const [rows] = await dbConecction.query(`
+            connection = await getConnection();
+            const [rows] = await connection.query(`
                 SELECT 
                     u.menarquia as menarquia, 
                     m.tipo_menarquia as tipo_menarquia
@@ -16,11 +18,17 @@ module.exports = {
         } catch (error) {
             console.error(error);
             throw error;
+        }finally{
+            if (connection) {
+                connection.release();
+            }
         }
     },
     reportes_registros: async (data) => {
+        let connection;
         try {
-            const [rows] = await dbConecction.query(`
+            connection = await getConnection()
+            const [rows] = await connection.query(`
                 SELECT 
                     r.idreporte as id,
                     r.usuario as usuario,
@@ -44,11 +52,17 @@ module.exports = {
         } catch (error) {
             console.error(error);
             throw error;
+        }finally{
+            if (connection) {
+                connection.release();
+            }
         }
     },
     reporte_eventos: async (data) => {
+        let connection;
         try {
-            const [rows] = await dbConecction.query(`
+            connection = await getConnection();
+            const [rows] = await connection.query(`
                 SELECT 
                     DATE_FORMAT(r.fecha, '%Y-%m-%d') as fecha, CAST(r.flujo AS UNSIGNED) AS flujo
                 FROM reporte r
@@ -60,11 +74,17 @@ module.exports = {
         } catch (error) {
             console.log(error);
             throw error;
+        }finally{
+            if (connection) {
+                connection.release();
+            }
         }
     },
     reporte_dia: async (data) => {
+        let connection;
         try {
-            const [rows] = await dbConecction.query(`
+            connection = await getConnection();
+            const [rows] = await connection.query(`
                     SELECT
                         *
                     FROM reporte
@@ -76,11 +96,17 @@ module.exports = {
         } catch (error) {
             console.log(error);
             throw error;
+        }finally{
+            if (connection) {
+                connection.release();
+            }
         }
     },
     reporte_crear: async (data) => {
+        let connection;
         try {
-            await dbConecction.query(`
+            connection = await getConnection();
+            await connection.query(`
                 INSERT INTO 
                 reporte
                 (usuario, flujo, dolores, estatus, fecha)
@@ -92,6 +118,10 @@ module.exports = {
         } catch (error) {
             console.log(error);
             throw error;
+        }finally{
+            if (connection) {
+                connection.release();
+            }
         }
     }
 }
